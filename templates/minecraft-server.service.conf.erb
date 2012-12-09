@@ -6,4 +6,4 @@ stop on shutdown
 
 respawn
 
-exec java -Xms<%= max_ram %>M -Xmx<%= max_ram %>M -jar <%= full_path %>
+exec java -Xms<%= max_ram %>M -Xmx<%= max_ram %>M -jar <%= full_path %> nogui
