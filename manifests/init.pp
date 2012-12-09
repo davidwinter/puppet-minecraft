@@ -1,12 +1,12 @@
 class minecraft (
-		$path,
+		$install_path,
 		$name = 'minecraft_server.jar',
 		$source = 'https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar',
 		$ram = 1024,
 		$startup_template = 'minecraft/minecraft-server.service.conf.erb',
 	) {
 	
-	$full_path = $path + '/' + $name
+	$full_path = $install_path + '/' + $name
 
 	package { 'openjdk-7-jre':
 		ensure => present,
