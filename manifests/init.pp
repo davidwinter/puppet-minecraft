@@ -1,5 +1,5 @@
 class minecraft (
-		$install_path,
+		$install_path = '/home/ubuntu',
 		$name = 'minecraft_server.jar',
 		$source = 'https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar',
 		$ram = 1024,
