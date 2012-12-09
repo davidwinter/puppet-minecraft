@@ -17,7 +17,7 @@ class minecraft (
 	}
 
 	file { 'startup script':
-		path    => '/etc/init/minecraft',
+		path    => '/etc/init/minecraft.conf',
 		content => template($startup_template),
 		require => [
 			Package['openjdk-7-jre'],
