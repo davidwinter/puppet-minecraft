@@ -13,7 +13,8 @@ class minecraft (
 	}
 
 	exec { 'download minecraft_server':
-		command => "wget -O ${full_path} ${jar_source}"
+		command => "wget -O ${full_path} ${jar_source}",
+		unless => "test -f ${full_path}",
 	}
 
 	file { 'startup script':
@@ -25,9 +26,17 @@ class minecraft (
 		],
 	}
 
+	file { '/etc/init.d/minecraft':
+		ensure => link,
+		target => '/lib/init/upstart-job',
+	}
+
 	service { 'minecraft':
 		ensure  => running,
-		require => File['startup script'],
+		require => [
+			File['/etc/init.d/minecraft'],
+			File['startup script'],
+		],
 	}
 	
 }

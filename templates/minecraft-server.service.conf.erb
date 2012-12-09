@@ -1,11 +1,9 @@
 description "Basic Minecraft server startup script"
 author "David Winter <i@djw.me>"
 
-start on startup
+start on (local-filesystems and net-device-up IFACE=eth0)
 stop on shutdown
 
 respawn
-
-expect fork
 
 exec java -Xms<%= max_ram %>M -Xmx<%= max_ram %>M -jar <%= full_path %>
