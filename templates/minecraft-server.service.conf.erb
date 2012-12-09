@@ -1,0 +1,11 @@
+description "Basic Minecraft server startup script"
+author "David Winter <i@djw.me>"
+
+start on startup
+stop on shutdown
+
+respawn
+
+expect fork
+
+exec java -Xms<%= ram %>M -Xmx<%= ram %>M -jar <%= path %>
