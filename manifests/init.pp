@@ -1,20 +1,19 @@
 class minecraft (
 		$install_path = '/home/ubuntu',
-		$name = 'minecraft_server.jar',
-		$source = 'https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar',
-		$ram = 1024,
+		$jar_name = 'minecraft_server.jar',
+		$jar_source = 'https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar',
+		$max_ram = 1024,
 		$startup_template = 'minecraft/minecraft-server.service.conf.erb',
 	) {
 	
-	$full_path = $install_path + '/' + $name
+	$full_path = "${install_path}/${jar_name}"
 
 	package { 'openjdk-7-jre':
 		ensure => present,
 	}
 
-	file { 'minecraft_server':
-		source => $source,
-		path   => $full_path,
+	exec { 'download minecraft_server':
+		command => "wget -O ${full_path} ${jar_source}"
 	}
 
 	file { 'startup script':
@@ -22,7 +21,7 @@ class minecraft (
 		content => template($startup_template),
 		require => [
 			Package['openjdk-7-jre'],
-			File['minecraft_server'],
+			Exec['download minecraft_server'],
 		],
 	}
 
